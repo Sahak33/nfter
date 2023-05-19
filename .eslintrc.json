@@ -1,0 +1,38 @@
+{
+  "env": {
+    "jest": true
+  },
+  "extends": ["react-app","prettier"],
+  "parserOptions": {
+    "ecmaFeatures": {"jsx": true},
+    "ecmaVersion": "latest"
+  },
+  "plugins": ["react","import","prettier", "simple-import-sort"],
+  "rules": {
+    "prettier/prettier": [
+      "warn",
+      {"printWidth":  100, "trailingComma":  "es5", "semi":  true, "jsxSingleQuote":  true, "singleQuote": true, "useTabs":  true}
+    ],
+    "simple-import-sort/imports": [
+      "warn",
+      {
+        "groups": [
+          [
+            "^react",
+            "^screens/",
+            "^\\u0000",
+            "^@?\\w",
+            "^[^.]",
+            "^store/",
+            "^utils/",
+            "^helpers/",
+            "^services/",
+            "^hooks/",
+            "^assets/",
+            "^.+\\.s?css$"
+          ]
+        ]
+      }
+    ]
+  }
+}

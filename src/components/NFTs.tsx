@@ -1,26 +1,25 @@
-import {FC, useEffect} from 'react';
-import { useAppDispatch, useAppSelector} from "../hooks";
-import { fetchNFTs } from "store/account/thunk";
-import { accountSelector } from "helpers/reduxSelectors";
-import Empty from "./Empty";
-import Card from "./Card";
+import { FC, useEffect } from 'react';
+import { fetchNFTs } from 'store/account/thunk';
+import { accountSelector } from 'helpers/reduxSelectors';
 
-const NFTs:FC = () => {
-  const { nfts } = useAppSelector(accountSelector);
-  const dispatch = useAppDispatch();
+import { useAppDispatch, useAppSelector } from '../hooks';
+import Card from './Card';
+import Empty from './Empty';
 
-  useEffect(() => {
-    dispatch(fetchNFTs());
-  }, []);
+const NFTs: FC = () => {
+	const { nfts } = useAppSelector(accountSelector);
+	const dispatch = useAppDispatch();
 
-  return (
-    <div>
-      {!nfts.length && <Empty />}
-      {!!nfts.length && nfts.map((item:any, index: number) => (
-        <Card key={index} item={item} />
-      ))}
-    </div>
-  );
+	useEffect(() => {
+		dispatch(fetchNFTs());
+	}, []);
+
+	return (
+		<div>
+			{!nfts.length && <Empty />}
+			{!!nfts.length && nfts.map((item: any, index: number) => <Card key={index} item={item} />)}
+		</div>
+	);
 };
 
 export default NFTs;

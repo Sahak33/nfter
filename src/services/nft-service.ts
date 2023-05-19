@@ -1,5 +1,5 @@
-import AxiosInstance from "utils/Instance";
+import AxiosInstance from 'utils/Instance';
 
-const URL = '/nfts'
+const URL = '/nfts';
 
 export const getNFTs = () => AxiosInstance.get(URL);
