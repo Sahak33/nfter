@@ -62,7 +62,7 @@ const Account: FC = () => {
 				/>
 			</div>
 			{toggle && (
-				<div className='absolute top-[48px] right-0  w-[230px] bg-white rounded-xl box-shadow-light border-solid border border-secondary-300 pt-[16px] pb-[16px] xs:w-[320px] xs:rounded-none xs:top-[55px] xs:right-[-31px] xs:h-[124px]'>
+				<div className='absolute top-[48px] right-0  w-[230px] bg-white rounded-xl shadow-xl pt-4 pb-4 xs:w-[320px] xs:rounded-none xs:top-[55px] xs:right-[-31px] xs:h-[124px]'>
 					<div
 						onClick={() => setToggle(false)}
 						className='group flex items-center h-[48px] w-full pl-6 hover:bg-secondary-200'
