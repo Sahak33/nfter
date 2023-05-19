@@ -2,14 +2,16 @@ import React from 'react';
 import Wallet from "./components/Wallet";
 import './App.css';
 import Header from "./components/Header";
-import Connect from "./components/Connect";
+import Card from "./components/Card";
+import Welcome from "./components/Welcome";
 
 const App = () => {
 
 return (
-  <div>
+  <div className='h-full flex flex-col'>
       <Header />
-      <Connect text={'Connect Wallet'} />
+      <Welcome />
+      {/*<Card />*/}
     {/*<Wallet />*/}
   </div>
 );
