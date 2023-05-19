@@ -20,7 +20,7 @@ const Connect = ({text = 'Connect'}: any) => {
     const handleConnect = async () => {
         let accounts: any;
         if (!window.ethereum) {
-            dispatch(setError('Install metamask'))
+            dispatch(setError('Install metamask'));
             return;
         }
 
@@ -42,8 +42,7 @@ const Connect = ({text = 'Connect'}: any) => {
              address: accounts[0],
        };
        dispatch(setSignature(signature))
-       const token = await dispatch(verify(verifyData)).unwrap();
-       console.log(token,'token');
+       await dispatch(verify(verifyData)).unwrap();
     };
 
     window.ethereum.on('accountsChanged', accountChangedHandler);
