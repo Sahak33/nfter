@@ -1,21 +1,46 @@
-import { FC, useState } from "react";
+import {FC, useEffect, useState} from "react";
 import Arrow from "assets/icons/arrow.svg";
-import { ReactComponent as Frame14 } from "assets/icons/explore.svg";
-import { ReactComponent as Frame15 } from "assets/icons/exit.svg";
-import {useAppSelector} from "../hooks";
-import {accountSelector} from "../helpers/reduxSelectors";
+import { ReactComponent as ExploreIcon } from "assets/icons/explore.svg";
+import { ReactComponent as ExitIcon } from "assets/icons/exit.svg";
+import {useAppDispatch, useAppSelector} from "hooks";
+import {accountSelector} from "helpers/reduxSelectors";
+import {disconnect, setAccount, setAccountImage} from "store/account/accountSlice";
+import Web3 from "web3";
 
 const Account: FC = () => {
   const [toggle, setToggle] = useState<boolean>(false);
-  const { address, avatar } = useAppSelector(accountSelector)
+  const { address, avatar, token } = useAppSelector(accountSelector);
 
-  const handleFormatAddress = (address: any) => {
-    return address?.slice(0, 11)?.replace("a", "...");
+  const dispatch = useAppDispatch();
+
+  const handleReconnect = async () => {
+    let accounts: any;
+    const web3 = new Web3(window.ethereum);
+    accounts = await web3.eth.getAccounts();
+    if (!accounts.length) {
+      accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
+      dispatch(setAccount(accounts[0]));
+    } else if (accounts[0] !== address) {
+      dispatch(setAccount(accounts[0]));
+    }
+    const accountImageURL = `https://www.gravatar.com/avatar/${web3.utils.sha3(accounts[0])}?d=identicon`;
+    dispatch(setAccountImage(accountImageURL))
+  };
+
+  useEffect(() => {
+    if (token) {
+      handleReconnect();
+    }
+  }, [token])
+
+  const handleFormatAddress = (address: string) => {
+    return address ? `${address.slice(0, 5)}...${address.slice(6, 11)}` : null;
   }
 
-  const Onclick = () => {
+  const logout = () => {
     setToggle(false);
-    // discount();
+    dispatch(disconnect())
+    localStorage.removeItem('token');
   };
 
   return (
@@ -30,13 +55,13 @@ const Account: FC = () => {
       {toggle && (
         <div className="absolute top-[48px] right-0  w-[230px] bg-white rounded-xl box-shadow-light border-solid border border-secondary-300 pt-[16px] pb-[16px] xs:w-[320px] xs:rounded-none xs:top-[55px] xs:right-[-31px] xs:h-[124px]">
           <div onClick={() => setToggle(false)} className="group flex items-center h-[48px] w-full pl-6 hover:bg-secondary-200">
-            <Frame14 className="w-3.5 h-3.5 text-secondary-700 group-hover:text-secondary-900" />
+            <ExploreIcon className="w-3.5 h-3.5 text-secondary-700 group-hover:text-secondary-900" />
             <p className="ml-3 text-base leading-6 font-semibold text-secondary-700 cursor-pointer group-hover:text-secondary-900">
               View on Explorer
             </p>
           </div>
-          <div onClick={Onclick} className="group flex items-center h-[48px] w-full  pl-6 hover:bg-secondary-200 ">
-            <Frame15 className="w-3.5 h-3.5 text-secondary-700 group-hover:text-secondary-900" />
+          <div onClick={logout} className="group flex items-center h-[48px] w-full  pl-6 hover:bg-secondary-200 ">
+            <ExitIcon className="w-3.5 h-3.5 text-secondary-700 group-hover:text-secondary-900" />
             <p className="ml-3 text-base leading-6 font-semibold text-secondary-700 cursor-pointer group-hover:text-secondary-900">
               Disconnect Wallet
             </p>

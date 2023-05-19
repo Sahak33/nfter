@@ -13,12 +13,11 @@ const NFTs:FC = () => {
     dispatch(fetchNFTs());
   }, []);
 
-
   return (
     <div>
       {!nfts.length && <Empty />}
-      {!!nfts.length && nfts.map((item: any) => (
-        <Card />
+      {!!nfts.length && nfts.map((item:any, index: number) => (
+        <Card key={index} item={item} />
       ))}
     </div>
   );

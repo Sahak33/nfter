@@ -17,6 +17,9 @@ const accountSlice = createSlice({
       },
       setAccountImage: (state, { payload }) => {
         state.avatar = payload;
+      },
+      disconnect: state => {
+        state.token = '';
       }
     },
     extraReducers: (builder) => {
@@ -59,5 +62,5 @@ const accountSlice = createSlice({
     },
 });
 
-export const { setAccount, setError, setSignature, setAccountImage } = accountSlice.actions;
+export const { setAccount, setError, setSignature, setAccountImage, disconnect } = accountSlice.actions;
 export default accountSlice.reducer;

@@ -25,7 +25,7 @@ const Connect:FC<ConnectType> = ({text = 'Connect'}) => {
     const handleConnect = async () => {
         let accounts: string[] | undefined;
         if (!window.ethereum) {
-            dispatch(setError('There was a problem connecting the wallet to the NFTer, try again.'));
+            dispatch(setError('Please install mestamask!'));
             return;
         }
 
