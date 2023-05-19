@@ -1,8 +1,7 @@
 import React from 'react';
 import NFTs from 'components/NFTs';
-import useAuth from 'hooks/useAuth';
-
 import Welcome from 'components/Welcome';
+import useAuth from 'hooks/useAuth';
 
 const Protected = () => {
 	const auth = useAuth();
