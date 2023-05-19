@@ -7,7 +7,6 @@ const initialState: any = {
     nfts: [],
     avatar: null,
     isConnected: false,
-    isDisabled: false,
     error: '',
 };
 

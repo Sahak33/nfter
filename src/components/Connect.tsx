@@ -6,7 +6,7 @@ import {accountSelector} from "helpers/reduxSelectors";
 import {setAccount, setAccountImage, setError, setSignature} from "store/account/accountSlice";
 
 const Connect = ({text = 'Connect'}: any) => {
-    const { address, isDisabled } = useAppSelector(accountSelector);
+    const { address, loading } = useAppSelector(accountSelector);
     const dispatch = useAppDispatch();
 
     const chainChangedHandler = () => {
@@ -51,9 +51,9 @@ const Connect = ({text = 'Connect'}: any) => {
 
     return (
         <button
-            className='h-10 bg-primary-600 px-5 rounded-lg text-white font-bold hover:bg-primary-700 active:bg-primary-800 disabled:bg-secondary-200'
+            className='h-10 bg-primary-600 px-5 rounded-lg text-white font-bold hover:bg-primary-700 active:bg-primary-800 disabled:bg-secondary-200 disabled:text-secondary-500'
             onClick={handleConnect}
-            disabled={isDisabled}
+            disabled={loading}
         >
             {text}
         </button>

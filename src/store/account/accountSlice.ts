@@ -25,7 +25,6 @@ const accountSlice = createSlice({
               state.loading = true;
           })
           .addCase(fetchMessage.fulfilled, (state, { payload }) => {
-              state.loading = false;
               state.message = payload;
               state.error = '';
           })
