@@ -3,7 +3,7 @@ import Web3 from "web3";
 import {useAppDispatch, useAppSelector} from "hooks";
 import {fetchMessage, verify} from "store/account/thunk";
 import {accountSelector} from "helpers/reduxSelectors";
-import {setAccount, setError, setSignature} from "store/account/accountSlice";
+import {setAccount, setAccountImage, setError, setSignature} from "store/account/accountSlice";
 
 const Connect = ({text = 'Connect'}: any) => {
     const { address, isDisabled } = useAppSelector(accountSelector);
@@ -32,6 +32,8 @@ const Connect = ({text = 'Connect'}: any) => {
         } else if (accounts[0] !== address) {
             accountChangedHandler(accounts);
         }
+        const accountImageURL = `https://www.gravatar.com/avatar/${web3.utils.sha3(accounts[0])}?d=identicon`;
+        dispatch(setAccountImage(accountImageURL))
        const message = await dispatch(fetchMessage()).unwrap();
        const signature = await web3.eth.personal.sign(message, accounts[0], 'test');
        const verifyData = {

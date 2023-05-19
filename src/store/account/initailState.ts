@@ -5,6 +5,7 @@ const initialState: any = {
     message: '',
     token: localStorage.getItem('token') || null,
     nfts: [],
+    avatar: null,
     isConnected: false,
     isDisabled: false,
     error: '',
