@@ -38,7 +38,11 @@ module.exports = {
           800: '#3C4249',
           900: '#212225',
         },
-        yellowLight: '#FFF8EB'
+        yellowLight: '#FFF8EB',
+        red: {
+          50: '#FFF5F2',
+          600: '#B01E20',
+        },
       },
     },
   },
