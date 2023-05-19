@@ -1,6 +1,4 @@
-import React from 'react';
 //import Wallet from "./components/Wallet";
-import './App.css';
 
 import Header from './components/Header';
 import Protected from './hoc/Protected';
