@@ -23,7 +23,7 @@ const Wallet = () => {
     const web3 = new Web3(window.ethereum);
     const accounts = await web3.eth.getAccounts();
     if (!accounts.length) {
-      console.log("Please connect to MetaMask!");
+      window.ethereum.request({ method: 'eth_requestAccounts' });
     } else if (accounts[0] !== currentAccount) {
       accountChangedHandler(accounts[0]);
     }
@@ -35,9 +35,6 @@ const Wallet = () => {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold underline">
-        Hello world!
-      </h1>
       <h2>address: {currentAccount}</h2>
       <button onClick={handleConnect}>connect</button>
     </div>

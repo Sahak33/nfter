@@ -30,7 +30,9 @@ module.exports = {
         900: '#212225',
       }
     },
-    extend: {},
+    extend: {
+      '25px': '25px',
+    },
   },
   plugins: [],
 }
