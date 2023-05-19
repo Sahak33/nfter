@@ -1,26 +1,31 @@
-import React from 'react';
+import {FC} from 'react';
 import Web3 from "web3";
 import {useAppDispatch, useAppSelector} from "hooks";
 import {fetchMessage, verify} from "store/account/thunk";
 import {accountSelector} from "helpers/reduxSelectors";
 import {setAccount, setAccountImage, setError, setSignature} from "store/account/accountSlice";
+import {VerifyType} from "../types";
 
-const Connect = ({text = 'Connect'}: any) => {
+type ConnectType = {
+  text?: string
+}
+
+const Connect:FC<ConnectType> = ({text = 'Connect'}) => {
     const { address, loading } = useAppSelector(accountSelector);
     const dispatch = useAppDispatch();
 
-    const chainChangedHandler = () => {
+    const chainChangedHandler = ():void => {
         window.location.reload();
     };
 
-    const accountChangedHandler = (newAccount: any) => {
+    const accountChangedHandler = (newAccount: any):void => {
         dispatch(setAccount(newAccount[0]));
     };
 
     const handleConnect = async () => {
-        let accounts: any;
+        let accounts: string[] | undefined;
         if (!window.ethereum) {
-            dispatch(setError('Install metamask'));
+            dispatch(setError('There was a problem connecting the wallet to the NFTer, try again.'));
             return;
         }
 
@@ -28,25 +33,27 @@ const Connect = ({text = 'Connect'}: any) => {
         accounts = await web3.eth.getAccounts();
         if (!accounts.length) {
            accounts = await window.ethereum.request({method: 'eth_requestAccounts'});
-            accountChangedHandler(accounts);
+           accountChangedHandler(accounts);
         } else if (accounts[0] !== address) {
-            accountChangedHandler(accounts);
+          accountChangedHandler(accounts);
         }
-        const accountImageURL = `https://www.gravatar.com/avatar/${web3.utils.sha3(accounts[0])}?d=identicon`;
-        dispatch(setAccountImage(accountImageURL))
-       const message = await dispatch(fetchMessage()).unwrap();
-       const signature = await web3.eth.personal.sign(message, accounts[0], 'test');
-       const verifyData = {
-             message,
-             signature,
-             address: accounts[0],
-       };
-       dispatch(setSignature(signature))
-       await dispatch(verify(verifyData)).unwrap();
+        if(accounts) {
+          const accountImageURL = `https://www.gravatar.com/avatar/${web3.utils.sha3(accounts[0])}?d=identicon`;
+          dispatch(setAccountImage(accountImageURL))
+          const message = await dispatch(fetchMessage()).unwrap();
+          const signature = await web3.eth.personal.sign(message, accounts[0], 'test');
+          const verifyData:VerifyType = {
+            message,
+            signature,
+            address: accounts[0],
+          };
+          dispatch(setSignature(signature))
+          await dispatch(verify(verifyData)).unwrap();
+        }
     };
 
-    window.ethereum.on('accountsChanged', accountChangedHandler);
-    window.ethereum.on('chainChanged', chainChangedHandler);
+    window.ethereum?.on('accountsChanged', accountChangedHandler);
+    window.ethereum?.on('chainChanged', chainChangedHandler);
 
     return (
         <button

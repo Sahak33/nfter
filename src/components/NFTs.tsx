@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react';
+import {FC, useEffect} from 'react';
 import { useAppDispatch, useAppSelector} from "../hooks";
 import { fetchNFTs } from "store/account/thunk";
 import { accountSelector } from "helpers/reduxSelectors";
 import Empty from "./Empty";
 import Card from "./Card";
 
-const NFTs = () => {
+const NFTs:FC = () => {
   const { nfts } = useAppSelector(accountSelector);
   const dispatch = useAppDispatch();
 

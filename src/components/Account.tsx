@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import Arror from "assets/icons/arrow.svg";
+import Arrow from "assets/icons/arrow.svg";
 import { ReactComponent as Frame14 } from "assets/icons/explore.svg";
 import { ReactComponent as Frame15 } from "assets/icons/exit.svg";
 import {useAppSelector} from "../hooks";
@@ -25,7 +25,7 @@ const Account: FC = () => {
         <span className="text-sm leading-[22px] font-semibold text-secondary-700 cursor-pointer">{handleFormatAddress(address)}</span>
       </div>
       <div className="flex items-center border-l  border-secondary-300 h-3">
-        <img className="ml-3 h-3 w-3 cursor-pointer" src={Arror} alt="avatar" onClick={() => setToggle(!toggle)} />
+        <img className="ml-3 h-3 w-3 cursor-pointer" src={Arrow} alt="avatar" onClick={() => setToggle(!toggle)} />
       </div>
       {toggle && (
         <div className="absolute top-[48px] right-0  w-[230px] bg-white rounded-xl box-shadow-light border-solid border border-secondary-300 pt-[16px] pb-[16px] xs:w-[320px] xs:rounded-none xs:top-[55px] xs:right-[-31px] xs:h-[124px]">

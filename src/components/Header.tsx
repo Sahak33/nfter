@@ -1,10 +1,10 @@
-import React from 'react';
+import {FC} from 'react';
 import {ReactComponent as Logo} from '../assets/images/logo.svg';
 import Connect from "./Connect";
 import useAuth from "../hooks/useAuth";
 import Account from "./Account";
 
-const Header = () => {
+const Header:FC = () => {
   const token = useAuth();
     return (
         <div className='py-4 px-[25px] flex items-center justify-between border-b border-b-secondary-300'>

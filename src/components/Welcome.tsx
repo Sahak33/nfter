@@ -1,12 +1,12 @@
-import React from 'react';
-import {ReactComponent as MetaFox } from "../assets/images/metafox.svg";
+import {FC} from 'react';
+import {ReactComponent as MetaFox } from "assets/images/metafox.svg";
 import Connect from "./Connect";
-import {useAppSelector} from "../hooks";
-import {accountSelector} from "../helpers/reduxSelectors";
+import {useAppSelector} from "hooks";
+import {accountSelector} from "helpers/reduxSelectors";
 import Loading from "./Loading";
 import Error from './Error';
 
-const Welcome = () => {
+const Welcome:FC = () => {
   const { loading, error } = useAppSelector(accountSelector);
     return (
         <div className='w-full h-full flex items-center justify-center flex-col'>

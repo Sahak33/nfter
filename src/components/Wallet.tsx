@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import {FC, useState} from 'react';
 import Web3 from 'web3';
 
 
-const Wallet = () => {
+const Wallet:FC = () => {
   const [error, setError] = useState('');
   const [currentAccount, setCurrentAccount] = useState();
 
