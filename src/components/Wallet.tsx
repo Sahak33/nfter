@@ -35,6 +35,9 @@ const Wallet = () => {
 
   return (
     <div>
+      <h1 className="text-2xl font-bold underline">
+        Hello world!
+      </h1>
       <h2>address: {currentAccount}</h2>
       <button onClick={handleConnect}>connect</button>
     </div>
