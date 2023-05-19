@@ -13,6 +13,13 @@ const Account: FC = () => {
 
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    if (token) {
+      handleReconnect();
+    }
+  }, [token])
+
+
   const handleReconnect = async () => {
     let accounts: any;
     const web3 = new Web3(window.ethereum);
@@ -26,12 +33,6 @@ const Account: FC = () => {
     const accountImageURL = `https://www.gravatar.com/avatar/${web3.utils.sha3(accounts[0])}?d=identicon`;
     dispatch(setAccountImage(accountImageURL))
   };
-
-  useEffect(() => {
-    if (token) {
-      handleReconnect();
-    }
-  }, [token])
 
   const handleFormatAddress = (address: string) => {
     return address ? `${address.slice(0, 5)}...${address.slice(6, 11)}` : null;
